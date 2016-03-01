@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>VueJs timepicker component</title>
+
+  <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+
+  <div id="demo" style="margin: 100px">
+
+    <timepicker></timepicker>
+    <hr />
+    <timepicker meridian hide-spinners></timepicker>
+    <br />
+    <pre>{{ data | json }}</pre>
+
+  </div>
+
+  <template id="timepicker-template">
+    <table class="vue-timepicker">
+      <tbody>
+        <tr class="text-center" v-if="!hideSpinners">
+          <td class="vue-timepicker-increment hours">
+            <a @click="incrementHours" class="btn btn-link" tabindex="0">
+              <span class="glyphicon glyphicon-chevron-up"></span></a>
+          </td>
+          <td>&nbsp;</td>
+          <td class="vue-timepicker-increment minutes">
+            <a @click="incrementMinutes()" class="btn btn-link" tabindex="0">
+              <span class="glyphicon glyphicon-chevron-up"></span>
+            </a>
+          </td>
+          <td v-if="!meridian" class=""></td>
+        </tr>
+
+        <tr>
+          <td class="form-group timepicker-time hours">
+            <input style="width: 50px;" type="text" placeholder="HH" v-model="hour"
+                   class="form-control text-center" lazy>
+          </td>
+          <td class="timepicker-separator">:</td>
+          <td class="form-group timepicker-time minutes">
+            <input style="width: 50px;" type="text" placeholder="MM" v-model="minute"
+                   class="form-control text-center"
+                   ng-readonly="::readonlyInput" maxlength="2" tabindex="0" ng-disabled="noIncrementMinutes()"
+                   ng-blur="blur()" lazy>
+          </td>
+
+          <td v-if="!meridian" class="am-pm">
+            <button type="button" ng-class="{disabled: noToggleMeridian()}" class="btn btn-default text-center"
+                    ng-click="toggleMeridian()" ng-disabled="noToggleMeridian()" tabindex="0">AM
+            </button>
+          </td>
+        </tr>
+
+        <tr class="text-center" v-if="!hideSpinners">
+          <td class="timepicker-decrement hours">
+            <a @click="decreaseHours()" class="btn btn-link" tabindex="0">
+              <span class="glyphicon glyphicon-chevron-down"></span>
+            </a>
+          </td>
+          <td>&nbsp;</td>
+          <td class="timepicker-decrement minutes">
+            <a @click="decreaseMinutes()" class="btn btn-link" tabindex="0">
+              <span class="glyphicon glyphicon-chevron-down"></span>
+            </a>
+          </td>
+
+          <td ng-show="showMeridian" class=""></td>
+        </tr>
+      </tbody>
+    </table>
+  </template>
+
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/moment/moment.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/vue/dist/vue.js"></script>
+  <script src="src/vue-timepicker.js"></script>
+  <script src="demo/app.js"></script>
+</body>
+</html>
